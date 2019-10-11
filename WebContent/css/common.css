@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+fieldset {
+	width:450px;
+	padding: 10px;
+}
+label {
+	width:120px;
+	float:left;
+}
+fieldset p:last-child input{
+	margin-left:120px;
+}
+span.error {
+	color:red;
+	font-size:9px;
+	display:none;
+}
