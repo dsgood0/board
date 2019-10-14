@@ -19,7 +19,7 @@ public class MemberLoginHandler implements CommandHandler {
 		if(request.getMethod().equalsIgnoreCase("get")) {
 			return "/WEB-INF/view/loginForm.jsp";
 		} else if(request.getMethod().equalsIgnoreCase("post")) {
-			request.setCharacterEncoding("utf-8");
+			// request.setCharacterEncoding("utf-8");
 			
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");

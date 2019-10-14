@@ -13,6 +13,27 @@
   	<servlet-name>ControllerUsingURI</servlet-name>
   	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  <filter>
+  	<filter-name>CharacterEncodingFilter</filter-name>
+  	<filter-class>com.khrd.util.CharacterEncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>CharacterEncodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+  	<filter-name>LoginCheckFilter</filter-name>
+  	<filter-class>com.khrd.util.LoginCheckFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>LoginCheckFilter</filter-name>
+  	<url-pattern>/article/add.do</url-pattern>
+  	<url-pattern>/article/update.do</url-pattern>
+  	<url-pattern>/article/delete.do</url-pattern>
+  	<url-pattern>/article/read.do</url-pattern>
+  	<url-pattern>/changepw.do</url-pattern>
+  </filter-mapping>
+    
   <servlet>
   	<servlet-name>DBCPInit</servlet-name>
   	<servlet-class>com.khrd.jdbc.DBCPInit</servlet-class>

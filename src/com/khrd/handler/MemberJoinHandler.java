@@ -19,7 +19,7 @@ public class MemberJoinHandler implements CommandHandler {
 		if(request.getMethod().equalsIgnoreCase("get")) {
 			return "/WEB-INF/view/joinForm.jsp";
 		} else if(request.getMethod().equalsIgnoreCase("post")) {
-			request.setCharacterEncoding("utf-8");
+			// request.setCharacterEncoding("utf-8");
 			
 			String memberid = request.getParameter("memberid");
 			String name = request.getParameter("name");
