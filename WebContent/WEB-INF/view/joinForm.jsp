@@ -10,6 +10,8 @@
 <script src="js/common.js"></script>
 <script>
 	$(function() {
+		var membercheckedid = $("input[name='memberid']").val();
+		
 		$("form").submit(function() {
 			$(".error").css("display", "none");
 			
@@ -20,10 +22,23 @@
 			
 			// 아이디 (영어, 숫자 6~15)
 			var regid = /^[a-zA-Z]{1}[a-zA-Z0-9]{5,14}$/i;
-			var memberid = $("input[name='memberid']").val();
+			var memberid = $("input[name='memberid']").val();			
 			
 			if(regid.test(memberid) == false) {
-				$(".error:eq(0)").css("display", "inline");			
+				$(".error:eq(0)").css("display", "inline");
+				$(".error:eq(0)").text("ID(영어, 숫자 6~15)를 입력하세요.");
+				return false;
+			}
+			
+			if(membercheckedid != memberid) {
+				$(".error:eq(0)").css("display", "inline");
+				$(".error:eq(0)").text("아이디를 중복확인하세요.");
+				return false;
+			}
+			
+			var avail = $(".error:eq(0)").text();
+			
+			if(avail != "사용가능한 아이디입니다.") {
 				return false;
 			}
 			
@@ -56,6 +71,26 @@
 			}
 		});
 		
+		$("#idcheck").click(function() {
+			$.ajax({
+				url:"${pageContext.request.contextPath}/joincheck.do",
+				type:"get",
+				data:{"id":$("#id").val()},
+				dataType:"json",
+				success:function(res){
+					console.log(res);
+					
+					if(res.result == "exist") {
+						$(".error:eq(0)").text("존재하는 아이디입니다.");
+						$(".error:eq(0)").css("display", "inline");						
+					} else if(res.result == "available") {
+						$(".error:eq(0)").text("사용가능한 아이디입니다.");
+						$(".error:eq(0)").css("display", "inline");												
+						membercheckedid = $("input[name='memberid']").val();
+					}
+				}
+			});
+		});
 	});
 </script>
 </head>
@@ -66,7 +101,8 @@
 			<legend>회원 가입</legend>
 			<p>
 				<label>아이디</label>
-				<input type="text" name="memberid">
+				<input type="text" name="memberid" id="id">
+				<button id="idcheck" type="button">중복확인</button><br>
 				<span class="error">ID(영어, 숫자 6~15)를 입력하세요.</span>
 			</p>
 			<p>
